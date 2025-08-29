@@ -1,13 +1,17 @@
 import pytest
+import allure
 from praktikum.bun import Bun
 
+@allure.feature("Проверка булочки для бургера")
 class TestBun:
+    @allure.title("Создание булочки с корректными данным")
     def test_bun_creation_with_correct_data(self):
         
         bun = Bun(name="Sesame Bun", price=1.5)
         assert bun.get_name() == "Sesame Bun", "Имя булочки должно быть 'Sesame Bun'"
         assert bun.get_price() == 1.5, "Цена булочки должна быть 1.5"
-
+    
+    @allure.title("Создание булочки с различными типами данных")
     @pytest.mark.parametrize("name, price, expected_name, expected_price", [
         ("Sesame Bun", 1.5, "Sesame Bun", 1.5),  # Корректные данные
         (123, 1.5, 123, 1.5),                   # Нестроковое имя

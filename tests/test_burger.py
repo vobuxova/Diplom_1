@@ -1,17 +1,20 @@
 import pytest
 from unittest.mock import Mock
+import allure
 from praktikum.burger import Burger
 from praktikum.bun import Bun
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
+@allure.feature("Проверка создания бургера")
 class TestBurger:
     
+    @allure.title("Создание бургера с исходными параметрами")
     def test_burger_creation(self):
         burger = Burger()
         assert burger.bun == None
         assert burger.ingredients == []
         
-        
+    @allure.title("Добавление ингредиентов в бургер")    
     @pytest.mark.parametrize("ing_type, ing_name, ing_price", [
         (INGREDIENT_TYPE_SAUCE, "кетчуп", 100.6),
         (INGREDIENT_TYPE_FILLING, "котлета", 200.0),
@@ -29,7 +32,8 @@ class TestBurger:
         assert ingredient in burger.ingredients
         assert len(burger.ingredients) == 1
         assert burger.ingredients[0] == ingredient
-
+    
+    @allure.title("Удаление ингредиента из бургера")
     def test_remove_ingredient(self, burger):
         ingredient1 = Mock()
         ingredient1.get_type.return_value = INGREDIENT_TYPE_SAUCE
@@ -49,7 +53,8 @@ class TestBurger:
         assert ingredient2 not in burger.ingredients
         assert len(burger.ingredients) == 1
         assert burger.ingredients[0] == ingredient1
-
+    
+    @allure.title("Перемещение ингредиента в бургере")
     def test_move_ingredient(self, burger):
         ingredient1 = Mock()
         ingredient1.get_type.return_value = INGREDIENT_TYPE_SAUCE
@@ -67,7 +72,8 @@ class TestBurger:
         burger.move_ingredient(1, 0)
 
         assert burger.ingredients[0] == ingredient2
-
+    
+    @allure.title("Получение цены бургера")
     def test_get_price(self, burger):
         ingredient = Mock()
         ingredient.price = 100.6
@@ -79,7 +85,8 @@ class TestBurger:
         total_price = ingredient.price + bun.get_price() * 2
         assert price == total_price
         assert price == 161.6
-
+    
+    @allure.title("Получение рецепта бургера с итоговой ценой")
     def test_get_receipt(self, burger):
         ingredient = Mock()
         ingredient.get_type.return_value = INGREDIENT_TYPE_SAUCE

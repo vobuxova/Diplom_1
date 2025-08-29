@@ -1,8 +1,10 @@
+import allure
 from praktikum.database import Database
-from praktikum.ingredient import Ingredient
 
-
+@allure.feature("Проверка методов по работе с базой данных")
 class TestDataBase:
+    
+    @allure.title("Проверка добавления ингредиентов и булочек в БД")
     def test_create_database(self):
         database = Database()
         buns_list = database.available_buns()

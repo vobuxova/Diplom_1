@@ -1,9 +1,12 @@
 import pytest
+import allure
 from praktikum.ingredient import Ingredient
 from praktikum.ingredient_types import INGREDIENT_TYPE_SAUCE, INGREDIENT_TYPE_FILLING
 
+@allure.feature("Проверка создания ингредиетов")
 class TestIngredient:
     
+    @allure.title("Создание ингредиентов")
     @pytest.mark.parametrize("ing_type, ing_name, ing_price", [
         ([INGREDIENT_TYPE_SAUCE, "кетчуп", 100.6]),  
         (INGREDIENT_TYPE_FILLING, "котлета", 200 ),                   
