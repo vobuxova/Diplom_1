@@ -5,9 +5,10 @@ class Bun:
     """
 
     def __init__(self, name: str, price: float):
+        
         self.name = name
-        self.price = price
-
+        self.price = float(price)
+        
     def get_name(self) -> str:
         return self.name
 
